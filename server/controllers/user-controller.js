@@ -5,6 +5,7 @@ export const signUpHandler=async(req,res)=>{
    try {
    const {username,email,password}=req.body;
 
+
    const existedUser=await User.findOne({email});
 
    if(existedUser){
@@ -13,10 +14,11 @@ export const signUpHandler=async(req,res)=>{
         message:"User Already Exists!!"
     })
 }
+   
     let hashPassword;
-
     try {
-      hashPassword=await bcrypt.hash(password,10);
+     hashPassword=await bcrypt.hash(password,10);
+     console.log(hashPassword)
 
     } catch (error) {
         console.error("Error in Hashing Password!!")
