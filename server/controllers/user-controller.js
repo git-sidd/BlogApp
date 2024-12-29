@@ -1,5 +1,10 @@
 import {User} from "../models/user-model.js"
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config({
+    path:"./.env"
+})
 
 export const signUpHandler=async(req,res)=>{
    try {
@@ -9,7 +14,7 @@ export const signUpHandler=async(req,res)=>{
    const existedUser=await User.findOne({email});
 
    if(existedUser){
-    return res.status(401).json({
+    return res.status(400).json({
         success:false,
         message:"User Already Exists!!"
     })
@@ -18,7 +23,7 @@ export const signUpHandler=async(req,res)=>{
     let hashPassword;
     try {
      hashPassword=await bcrypt.hash(password,10);
-     console.log(hashPassword)
+    
 
     } catch (error) {
         console.error("Error in Hashing Password!!")
@@ -45,4 +50,69 @@ export const signUpHandler=async(req,res)=>{
         message:"Error While Registering User!!!"
     })
    }
+}
+
+export const loginHandler=async(req,res)=>{
+    try {
+        const {email,password}=req.body;
+
+
+        if(!email||!password){
+            return res.status(401).json({
+                success:false,
+                message:"Both Fields are Necessary!!"
+            })
+        }
+
+
+        const registeredUser=await User.findOne({email});
+        if(!registeredUser){
+            return res.status(402).json({
+                success:false,
+                message:"User Not Registered,Please SignUp!!"
+            })
+        }
+
+
+        const payload={
+            email:registeredUser.email,
+            password:registeredUser.password,
+            username:registeredUser.username
+        };
+
+        if(await bcrypt.compare(password,registeredUser.password)){
+            let token=jwt.sign(
+                payload,
+                process.env.JWT_SECRET,
+                {
+                    expiresIn:"2h",
+                }
+            )
+            registeredUser.token=token;
+            registeredUser.password=undefined;
+            const options={
+                httpOnly:true,
+                expires:new Date(Date.now()+3*24*60*60*1000)  //3 days
+            }
+            res.cookie("token",token,options).status(200).json({
+                success:true,
+                token,
+                registeredUser,
+                message:"User Logged In Successfully!!",
+            })
+        }else{
+            return res.status(403).json({
+                success:false,
+                message:"Password Incorrect!"
+            })
+        }
+
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:"Internal server error,Please try later..!!"
+        })
+    }
 }

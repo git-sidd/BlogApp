@@ -3,7 +3,10 @@ import { Box, TextField, Button } from "@mui/material";
 import axios from "axios";
 import toast from "react-hot-toast"
 
+
+
 const SignUp = () => {
+
   const [formData, setFormData] = useState({
     username:"",
     email:"",
@@ -23,8 +26,21 @@ const SignUp = () => {
           toast.error("All fields are necessary!!");
       }
       axios.post("http://localhost:8000/api/v1/signup",formData)
-      .then((res)=>(console.log(res)))
-      .catch((error)=>console.log(error))
+      .then((res)=>{
+        console.log(res);
+        toast.success(res.data.message||"Registered Successfully!!")
+        setFormData({username:"",
+          email:"",
+          password:"",})
+         
+      })
+      .catch((error)=>{
+        const errorMessage =
+        error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : "Something went wrong!";
+      toast.error(errorMessage);
+      })
 
 
 
