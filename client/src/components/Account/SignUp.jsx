@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import axios from "axios";
 import toast from "react-hot-toast"
-
-
+import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     username:"",
     email:"",
@@ -32,7 +32,7 @@ const SignUp = () => {
         setFormData({username:"",
           email:"",
           password:"",})
-         
+         navigate("/login")
       })
       .catch((error)=>{
         const errorMessage =
@@ -88,7 +88,7 @@ const SignUp = () => {
         </Button>
         <div>----------or----------</div>
         <Button variant="outlined" className="">
-          Already have an account?
+        <Link to={"/login"} > Already have an account?</Link>
         </Button>
       </div>
     </Box>

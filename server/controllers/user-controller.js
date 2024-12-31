@@ -12,6 +12,14 @@ export const signUpHandler=async(req,res)=>{
 
 
    const existedUser=await User.findOne({email});
+   const usernameExisted=await User.findOne({username})
+
+   if(usernameExisted){
+    return res.status(401).json({
+        success:false,
+        message:"Username Already Taken!"
+    })
+   }
 
    if(existedUser){
     return res.status(400).json({

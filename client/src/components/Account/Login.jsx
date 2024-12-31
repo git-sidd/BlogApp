@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-
+const Login = ({setIsAuthenticated}) => {
+  const navigate=useNavigate();
   const [formData,setFormData]=useState({
     email:"",
     password:""
@@ -26,6 +28,8 @@ const Login = () => {
         email:"",
         password:""
       })
+      setIsAuthenticated(true);
+      navigate("/")
     })
     .catch((error)=>{
       toast.error( error.response.data.message || "Something Went Wrong try later")
@@ -65,7 +69,7 @@ const Login = () => {
         </Button>
         <div>----------or----------</div>
         <Button variant="outlined" className="">
-          Dont't have an account?
+        <Link to={"/signup"}>  Dont't have an account?</Link>
         </Button>
       </div>
     </Box>
