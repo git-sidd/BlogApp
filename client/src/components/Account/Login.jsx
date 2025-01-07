@@ -20,7 +20,7 @@ const Login = ({setIsAuthenticated}) => {
   }
   const submitHandler=(e)=>{
    
-    axios.post("http://localhost:8000/api/v1/login",formData)
+    axios.post("http://localhost:8000/api/v1/login",formData , { withCredentials: true })
     .then((res)=>{
      
       toast.success(res.data.message||"User Logged in successfully!!")

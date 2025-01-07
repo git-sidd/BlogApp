@@ -6,6 +6,7 @@ import {Route, Routes,Navigate,Outlet} from "react-router-dom"
 import SignUp from "./components/Account/SignUp"
 import CreatePost from "./components/CreatePost";
 
+
 const PrivateRoute=({isAuthenticated})=>{
   return isAuthenticated?
   <Outlet/>:<Navigate replace to="/login"></Navigate>
@@ -23,7 +24,7 @@ function App() {
        <Route path="/signup" element={<SignUp/>}></Route>
        <Route path="/" element={ <PrivateRoute isAuthenticated={isAuthenticated}/>}>
        <Route path="/" element={<Home setIsAuthenticated={setIsAuthenticated}/>}/>
-       <Route path="/create" element={<CreatePost/>}/>
+       <Route path="/create" element={<CreatePost setIsAuthenticated={setIsAuthenticated}/>}/>
        </Route>
        
         

@@ -85,7 +85,8 @@ export const loginHandler=async(req,res)=>{
         const payload={
             email:registeredUser.email,
             password:registeredUser.password,
-            username:registeredUser.username
+            username:registeredUser.username,
+            _id:registeredUser._id
         };
 
         if(await bcrypt.compare(password,registeredUser.password)){
@@ -99,8 +100,10 @@ export const loginHandler=async(req,res)=>{
             registeredUser.token=token;
             registeredUser.password=undefined;
             const options={
-                httpOnly:true,
-                expires:new Date(Date.now()+3*24*60*60*1000)  //3 days
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production", // Set `true` for production
+                sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
             }
             res.cookie("token",token,options).status(200).json({
                 success:true,

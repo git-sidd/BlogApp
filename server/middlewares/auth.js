@@ -5,8 +5,9 @@ dotenv.config({
 })
 export const auth=(req,res,next)=>{
     try{
-        //extract jwt token
+        
         const token=req.cookies.token;
+        
         
         if(!token){
             return res.status(400).json({
