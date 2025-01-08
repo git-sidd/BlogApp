@@ -5,6 +5,8 @@ import Home from "./components/Screens/Home";
 import {Route, Routes,Navigate,Outlet} from "react-router-dom"
 import SignUp from "./components/Account/SignUp"
 import CreatePost from "./components/CreatePost";
+import Navbar from "./components/Screens/Navbar";
+import Footer from "./components/Screens/Footer";
 
 
 const PrivateRoute=({isAuthenticated})=>{
@@ -18,18 +20,23 @@ function App() {
   return (
     <div >
       
+       <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
        <Routes>
        
        <Route path="/login" element={ <Login setIsAuthenticated={setIsAuthenticated}/>}></Route>
        <Route path="/signup" element={<SignUp/>}></Route>
-       <Route path="/" element={ <PrivateRoute isAuthenticated={isAuthenticated}/>}>
+        <Route path="/" element={ <PrivateRoute isAuthenticated={isAuthenticated}/>}>
        <Route path="/" element={<Home setIsAuthenticated={setIsAuthenticated}/>}/>
        <Route path="/create" element={<CreatePost setIsAuthenticated={setIsAuthenticated}/>}/>
        </Route>
+       </Routes>
+        <Footer/>
        
+     
+      
+      
         
 
-       </Routes>
       
     </div>
   );

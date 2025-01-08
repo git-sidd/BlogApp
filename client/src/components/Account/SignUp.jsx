@@ -49,7 +49,8 @@ const SignUp = () => {
 
   const logo = "/Images/Logo.png";
   return (
-    <form onSubmit={submitHandler}>
+    <div  className="mb-20 my-auto ">
+      <form onSubmit={submitHandler}>
     <Box className="flex flex-col gap-2 justify-center items-center w-[400px] mx-auto shadow-2xl p-2 mt-20 md:mt-5">
       <img src={logo} alt="Logo" width={150} height={200} />
       <TextField
@@ -93,6 +94,7 @@ const SignUp = () => {
       </div>
     </Box>
       </form>
+    </div>
   );
 };
 

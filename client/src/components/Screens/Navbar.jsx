@@ -20,7 +20,7 @@ const drawerWidth = 240;
 
 
 function Navbar(props) {
-  const { window,setIsAuthenticated } = props;
+  const { window,isAuthenticated,setIsAuthenticated } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -29,50 +29,76 @@ function Navbar(props) {
 
   const drawer = (
     <Box  onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-      <h1 className='font-semibold'><span className='text-red-700 text-3xl underline'>S</span>idd<span className='text-red-700 text-3xl underline'>B</span>logz</h1>
+      <Typography variant="h6" sx={{ my: 2 }}  className='cursor-pointer'>
+    <Link to={"/"} className='cursor-pointer' >  <h1 className='font-semibold cursor-pointer'><span className='text-blue-700 text-3xl underline'>S</span>idd<span className='text-blue-700 text-3xl underline'>B</span>logz</h1></Link>
       </Typography>
       <Divider />
-      <List>
+     {
+      isAuthenticated?(
+        <List>
         
-          <ListItem  disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText>
-               <Link to={"/"}>
-                     Home
-               </Link>
-            </ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem  disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText>
-            <Link to={"/about"}>
-                     About
-               </Link>
-            </ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem  disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText>
-            <Link to={"/contact"}>
-                     Contact
-               </Link>
-            </ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem  disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText onClick={()=>setIsAuthenticated(false)}>
-            
-                     Logout
-               
-            </ListItemText>
-            </ListItemButton>
-          </ListItem>
-    
-      </List>
+        <ListItem  disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText>
+             <Link to={"/"}>
+                   Home
+             </Link>
+          </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem  disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText>
+          <Link to={"/about"}>
+                   About
+             </Link>
+          </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem  disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText>
+          <Link to={"/contact"}>
+                   Contact
+             </Link>
+          </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem  disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText onClick={()=>setIsAuthenticated(false)}>
+          
+                   Logout
+             
+          </ListItemText>
+          </ListItemButton>
+        </ListItem>
+  
+    </List>
+      ):
+      (
+        <List>
+           <ListItem  disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText>
+          <Link to={"/login"}>
+                   Login
+             </Link>
+          </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem  disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText>
+          <Link to={"/signup"}>
+                   SignUp
+             </Link>
+          </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        </List>
+      )
+     }
     </Box>
   );
 
@@ -82,7 +108,7 @@ function Navbar(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav">
-        <Toolbar className='bg-red-700'>
+        <Toolbar className='bg-gradient-to-r from-cyan-500 to-blue-500 ...'>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -98,32 +124,48 @@ function Navbar(props) {
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             
           >
-            <h1 className='font-semibold'><span className='text-black text-3xl underline'>S</span>idd<span className='text-black text-3xl underline'>B</span>logz</h1>
+             <Link to={"/"} >  <h1 className='font-semibold cursor-pointer'><span className='text-black text-3xl underline'>S</span>idd<span className='text-black text-3xl underline'>B</span>logz</h1></Link>
           </Typography>
-          <Box   sx={{ display: { xs: 'none', sm: 'block' } }}>
+        {
+          isAuthenticated?(  <Box   sx={{ display: { xs: 'none', sm: 'block' } }}>
             
-              <Button  sx={{ color: '#fff' }}>
-              <Link to={"/"}>
-                     Home
-               </Link>
-              </Button>
-              <Button  sx={{ color: '#fff' }}>
-              <Link to={"/about"}>
-                     About
-               </Link>
-              </Button>
-              <Button  sx={{ color: '#fff' }}>
-              <Link to={"/contact"}>
-                     Contact
-               </Link>
-              </Button>
-              <Button  sx={{ color: '#fff' }}  onClick={()=>setIsAuthenticated(false)}>
-              
-                     Logout
-               
-              </Button>
+            <Button  sx={{ color: '#fff' }}>
+            <Link to={"/"}>
+                   Home
+             </Link>
+            </Button>
+            <Button  sx={{ color: '#fff' }}>
+            <Link to={"/about"}>
+                   About
+             </Link>
+            </Button>
+            <Button  sx={{ color: '#fff' }}>
+            <Link to={"/contact"}>
+                   Contact
+             </Link>
+            </Button>
+            <Button  sx={{ color: '#fff' }}  onClick={()=>setIsAuthenticated(false)}>
             
-          </Box>
+                   Logout
+             
+            </Button>
+          
+        </Box>):(  <Box   sx={{ display: { xs: 'none', sm: 'block' } }}>
+            
+            <Button  sx={{ color: '#fff' }}>
+            <Link to={"/login"}>
+                   Login
+             </Link>
+            </Button>
+            <Button  sx={{ color: '#fff' }}>
+            <Link to={"/signup"}>
+                   SignUp
+             </Link>
+            </Button>
+            
+          
+        </Box>)
+        }
         </Toolbar>
       </AppBar>
       <nav>
@@ -138,7 +180,7 @@ function Navbar(props) {
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth ,backgroundColor:'#f8e4e0'},
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth ,backgroundColor:'#aacff3 ', borderTopRightRadius:'10px', borderBottomRightRadius:'10px' ,borderRightColor:'#ffffff', borderWidth:'5px'},
           }}
         >
          <div  >

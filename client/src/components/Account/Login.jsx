@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+
 const Login = ({setIsAuthenticated}) => {
   const navigate=useNavigate();
   const [formData,setFormData]=useState({
@@ -38,7 +39,8 @@ const Login = ({setIsAuthenticated}) => {
   }
   const logo = "/Images/Logo.png";
   return (
-   <form onSubmit={submitHandler}>
+  <div className="mb-20 my-auto ">
+     <form onSubmit={submitHandler}>
      <Box className="flex flex-col gap-2 justify-center items-center w-[400px] mx-auto shadow-lg p-2 mt-20 md:mt-5">
       <img src={logo} alt="Logo" width={150} height={200} />
       <TextField
@@ -74,6 +76,8 @@ const Login = ({setIsAuthenticated}) => {
       </div>
     </Box>
    </form>
+  
+  </div>
   );
 };
 

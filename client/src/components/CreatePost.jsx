@@ -79,11 +79,11 @@ const CreatePost = ({ setIsAuthenticated }) => {
   const bannerimg = "/Images/createblog.jpeg";
   return (
     <div>
-      <div className="flex flex-col -space-y-11">
-        <Navbar setIsAuthenticated={setIsAuthenticated} />
-        <div className=" px-14">
+      <div className="flex flex-col ">
+       
+        <div className="px-2 md:px-14">
           <div>
-            {" "}
+         
             <img
               src={ post.picture||bannerimg}
               alt="blogImage"
@@ -91,7 +91,7 @@ const CreatePost = ({ setIsAuthenticated }) => {
             />
           </div>
           <form onSubmit={submitHandler} >
-            <div className="flex flex-row justify-between items-center gap-4 mt-4">
+            <div className="flex flex-row justify-between items-center gap-4  mt-4 md:mr-0 mr-2">
               <div>
                 <label htmlFor="fileInput">
                   <AddCircle
@@ -115,7 +115,8 @@ const CreatePost = ({ setIsAuthenticated }) => {
                 onChange={handleChange}
               />
 
-              <Button
+             <div  className="hidden md:block">
+             <Button
                 variant="contained"
                 type="submit"
                 color="error"
@@ -123,14 +124,17 @@ const CreatePost = ({ setIsAuthenticated }) => {
               >
                 Publish
               </Button>
+             </div>
             </div>
-            <textarea
+           <div className="mb-12">
+           <textarea
               name="description"
-              className="w-full mt-6 h-40 p-2 outline-red-700 outline-double rounded-lg"
+              className="w-full mt-6 h-60 md:h-40 p-2 outline-red-700 outline-double rounded-lg"
               placeholder="Blog Content....."
               id=""
               onChange={handleChange}
             ></textarea>
+           </div>
           </form>
         </div>
       </div>
