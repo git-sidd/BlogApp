@@ -17,7 +17,7 @@ const Categories = () => {
   return (
     <div className="flex flex-col justify-center items-center border border-r-2">
       <div className="p-2 mx-auto">
-        <Link to={`/create/?category=${category || 'all'}`}>
+        <Link to={`/create/?category=${category}`}>
           <Button variant="contained" endIcon={<CreateIcon />}>
             Create Blog
           </Button>
@@ -30,7 +30,7 @@ const Categories = () => {
         <TableHead>
           <TableRow>
             <TableCell align="center">
-              <p className="font-semibold cursor-pointer">All Categories</p>
+              <p className="font-semibold cursor-pointer"> Categories</p>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -40,7 +40,7 @@ const Categories = () => {
               <TableCell align="center">
                 <Link
                   className="font-semibold"
-                  to={`/?category=${category.name.toLowerCase()}`}
+                 to={category.name.toLowerCase() === "all" ? "/" : `/?category=${category.name.toLowerCase()}`}
                 >
                   {category.name}
                 </Link>

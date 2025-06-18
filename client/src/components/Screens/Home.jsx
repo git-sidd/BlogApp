@@ -12,7 +12,7 @@ const Home = (props) => {
       <Banner/>
       </div>
    
-       <div className='flex md:flex-row flex-col mb-16'>
+       <div className='flex md:flex-row bg-blue-200/20 flex-col mb-16'>
        <div className='w-[full] md:w-[15%]'><Categories/></div>
        <div className='w-full md:w-[85%] overflow-y-scroll'><Post/></div>
        

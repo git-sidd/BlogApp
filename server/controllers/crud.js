@@ -1,25 +1,29 @@
 import { Blog } from "../models/blog-model.js";
 
+export const getBlogs = async (req, res) => {
+  try {
+    const category = req.query.category;
 
-export const getBlogs=async(req,res)=>{
-   try {
-    const blog=await Blog.find();
-   
-    if(blog.length==0){
-        return res.status(401).json({
-            success:false,
-            message:"No Blogs to Show!!"
-        })
+    const filter = category ? { category } : {}; // only filter if category exists
+    const blogs = await Blog.find(filter);
+
+    if (blogs.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No Blogs to Show!!"
+      });
     }
+
     return res.status(200).json({
-        success:true,
-        message:`Blogs Fetched Successfully!!`
-    })
-   } catch (error) {
-    console.log("error:",error)
+      success: true,
+      message: "Blogs Fetched Successfully!!",
+      data: blogs
+    });
+  } catch (error) {
+    console.error("error:", error);
     return res.status(500).json({
-        success:false,
-        message:"Something Wents Wrong!!"
-    })
-   }
-}
+      success: false,
+      message: "Something Went Wrong!!"
+    });
+  }
+};
